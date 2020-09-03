@@ -1,2 +1,20 @@
-# vue-day-moment-js
-Day.js is a minimalist (Fast 2kB) JavaScript library for modern browsers with a largely Moment.js-compatible API. If you use Moment.js, you already know how to use Day.js.
+# How to use
+
+
+```
+import Vue from Vue
+import VueDayMoment from 'vue-day-moment'
+
+Vue.use(VueDayJS, {
+  placeholder: '-----',
+  format: 'DD.MM.YYYY, HH:mm',
+  directives: ['moment', 'dayjs'],
+  modifiers: {
+    time: 'HH:mm',
+    date: 'DD.MM.YYYY',
+    datetime: 'DD.MM.YYYY, HH:mm',
+  },
+}) 
+
+return Vue.prototype.moment // or Vue.prototype.dayjs
+```
