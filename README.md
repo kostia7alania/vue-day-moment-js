@@ -22,7 +22,7 @@ return Vue.prototype.moment // or Vue.prototype.dayjs
 ```
 ## USAGE
 
-#### Directives
+### Directives
 
 ```
 <span v-moment="props.row.created"></span>
@@ -32,14 +32,18 @@ return Vue.prototype.moment // or Vue.prototype.dayjs
 <span v-moment.datetime="{ date: props.row.created }"></span>
 ```
 
-#### Filters
+### Filters
 
 ##### Format
 
 ```
-{{ props.row.modified | moment('DD.MM.YYYY, HH:mm') }}  # out => 02.09.2020, 14:16 
-{{ props.row.modified | moment }} # out => 02.09.2020, 14:16 (from default or global settings)
+{{ props.row.modified | moment('DD.MM.YYYY, HH:mm') }} 
 ```
+Result: `02.09.2020, 14:16`
+```
+{{ props.row.modified | moment }}
+```
+Result: `02.09.2020, 14:16 (from default or global settings)`
 
 ##### Add
 ```
