@@ -3,9 +3,9 @@
 
 ```
 import Vue from Vue
-import VueDayMoment from 'vue-day-moment'
+import VueDayMomentJS from 'vue-day-moment-js'
 
-Vue.use(VueDayJS, {
+Vue.use(VueDayMomentJS, {
   placeholder: '-----',
   format: 'DD.MM.YYYY, HH:mm',
   directives: ['moment', 'dayjs'],
