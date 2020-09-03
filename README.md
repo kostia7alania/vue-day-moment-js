@@ -1,11 +1,11 @@
 # How to use
 
-
+#### Install
 ```
 import Vue from Vue
 import VueDayMomentJS from 'vue-day-moment-js'
 
-Vue.use(VueDayMomentJS, {
+const opions = {
   placeholder: '-----',
   format: 'DD.MM.YYYY, HH:mm',
   directives: ['moment', 'dayjs'],
@@ -14,11 +14,16 @@ Vue.use(VueDayMomentJS, {
     date: 'DD.MM.YYYY',
     datetime: 'DD.MM.YYYY, HH:mm',
   },
-}) 
+}
+
+Vue.use(VueDayMomentJS, options) 
 
 return Vue.prototype.moment // or Vue.prototype.dayjs
 ```
 ## USAGE
+
+#### Directives
+
 ```
 <span v-moment="props.row.created"></span>
 <span v-moment="{ date: props.row.created }"></span>
@@ -26,3 +31,29 @@ return Vue.prototype.moment // or Vue.prototype.dayjs
 <span v-moment.date="{ date: props.row.created }"></span>
 <span v-moment.datetime="{ date: props.row.created }"></span>
 ```
+
+#### Filters
+
+##### Format
+
+```
+{{ props.row.modified | moment('DD.MM.YYYY, HH:mm') }}  # out => 02.09.2020, 14:16 
+{{ props.row.modified | moment }} # out => 02.09.2020, 14:16 (from default or global settings)
+```
+
+##### Add
+```
+<span>{{ props.row.modified | moment('add', 1, 'day') }}</span>
+```
+##### Subtract
+```
+<span>{{ props.row.modified | moment('subtract', 1, 'day') }}</span>
+```
+
+#### Methods
+```
+this.$dayjs().format('YYYY-MM-DD HH:mm:ss');
+this.moment() // default format - depends on def-config
+```
+
+
