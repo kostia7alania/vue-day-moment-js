@@ -10,14 +10,22 @@ import Vue from Vue
 import VueDayMomentJS from 'vue-day-moment-js'
 
 const opions = {
-  placeholder: '-----', // show this if date is invalid
-  format: 'DD.MM.YYYY, HH:mm', // global default format
-  directives: ['moment', 'dayjs'], // inject aliases. Example: if ['moment', 'dayjs'] then we can use  <span v-moment> or <span v-dayjs>
+
+  // show this if date is invalid
+  placeholder: '-----', 
+  
+  // global default format
+  format: 'DD.MM.YYYY, HH:mm', 
+  
+  // inject aliases. Example: if ['moment', 'dayjs'] then we can use  <span v-moment> or <span v-dayjs>
+  directives: ['moment', 'dayjs'], 
+  
   modifiers: { // inject directive modifiers with specified date format
     time: 'HH:mm',
     date: 'DD.MM.YYYY', 
     datetime: 'DD.MM.YYYY, HH:mm',
   },
+  
 }
 
 Vue.use(VueDayMomentJS, options) 
