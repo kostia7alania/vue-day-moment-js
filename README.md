@@ -63,5 +63,10 @@ Depends on:
 this.$dayjs().format('YYYY-MM-DD HH:mm:ss');
 this.moment() // default format - depends on def-config
 ```
-
+### Wrong date
+```
+<span>{{ 'wrong date' | moment }}</span>
+```
+Result: `-----`
+Which specified in placeholder
 
