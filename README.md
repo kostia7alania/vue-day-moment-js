@@ -20,7 +20,8 @@ const opions = {
   // inject aliases. Example: if ['moment', 'dayjs'] then we can use  <span v-moment> or <span v-dayjs>
   directives: ['moment', 'dayjs'], 
   
-  modifiers: { // inject directive modifiers with specified date format
+  // inject directive modifiers with specified date format. E.g. <span v-moment.time>
+  modifiers: { 
     time: 'HH:mm',
     date: 'DD.MM.YYYY', 
     datetime: 'DD.MM.YYYY, HH:mm',
