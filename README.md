@@ -8,10 +8,10 @@ import VueDayMomentJS from 'vue-day-moment-js'
 const opions = {
   placeholder: '-----',
   format: 'DD.MM.YYYY, HH:mm',
-  directives: ['moment', 'dayjs'],
-  modifiers: {
+  directives: ['moment', 'dayjs'], // inject aliases
+  modifiers: { // inject directive modifiers with specified format
     time: 'HH:mm',
-    date: 'DD.MM.YYYY',
+    date: 'DD.MM.YYYY', 
     datetime: 'DD.MM.YYYY, HH:mm',
   },
 }
