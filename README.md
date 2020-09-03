@@ -68,5 +68,5 @@ this.moment() // default format - depends on def-config
 <span>{{ 'wrong date' | moment }}</span>
 ```
 Result: `-----`
-Which specified in placeholder
+Specified in placeholder
 
