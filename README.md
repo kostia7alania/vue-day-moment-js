@@ -43,7 +43,8 @@ Result: `02.09.2020, 14:16`
 ```
 {{ props.row.modified | moment }}
 ```
-Result: `02.09.2020, 14:16 (from default or global settings)`
+Result: `02.09.2020, 14:16`
+Depends on default or global settings
 
 ##### Add
 ```
