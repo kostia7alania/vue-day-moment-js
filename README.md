@@ -1,6 +1,14 @@
+## Install
+```
+yarn add vue-day-moment-js
+```
+
 # How to use
 
 #### Install
+
+`@/setups/moment`
+
 ```
 import Vue from Vue
 import VueDayMomentJS from 'vue-day-moment-js'
