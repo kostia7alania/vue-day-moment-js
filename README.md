@@ -44,6 +44,7 @@ Result: `02.09.2020, 14:16`
 {{ props.row.modified | moment }}
 ```
 Result: `02.09.2020, 14:16`
+
 Depends on:
 1) global settings
 2) default - 'DD.MM.YYYY, HH:mm'
