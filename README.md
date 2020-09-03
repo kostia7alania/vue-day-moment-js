@@ -7,7 +7,7 @@ yarn add vue-day-moment-js
 
 #### Install
 
-`@/setups/moment`
+`@/setups/moment.js`
 
 ```
 import Vue from Vue
@@ -27,6 +27,11 @@ const opions = {
 Vue.use(VueDayMomentJS, options) 
 
 return Vue.prototype.moment // or Vue.prototype.dayjs
+```
+
+`@/main.js`
+```
+import '@/setups/moment'
 ```
 ## USAGE
 
