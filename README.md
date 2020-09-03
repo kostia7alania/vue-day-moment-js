@@ -3,10 +3,6 @@
 yarn add vue-day-moment-js
 ```
 
-# How to use
-
-#### Install
-
 `@/setups/moment.js`
 
 ```
@@ -33,7 +29,9 @@ return Vue.prototype.moment // or Vue.prototype.dayjs
 ```
 import '@/setups/moment'
 ```
-## USAGE
+
+
+# How to use 
 
 ### Directives
 
