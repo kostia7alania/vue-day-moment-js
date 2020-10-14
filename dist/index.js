@@ -1,5 +1,5 @@
 /*!
- * vue-day-moment-js v0.0.5
+ * vue-day-moment-js v0.0.6
  * (c) Kostia Bazrov
  * Released under the MIT License.
  */
@@ -214,8 +214,7 @@ VueDayJS.install = function (Vue) {
       var toEl = res && res.isValid() ? res.format(format) : options.placeholder;
       el.innerText = toEl;
     }
-  };
-  window.dayjs = dayjs__default['default']; // метод
+  }; // метод
 
   var methodCallback = function methodCallback(date) {
     var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -253,7 +252,7 @@ VueDayJS.install = function (Vue) {
     return options.placeholder;
   };
 
-  methodCallback = Object.assign({}, dayjs__default['default'], methodCallback);
+  Object.assign(methodCallback, dayjs__default['default']);
   methodCallback.prototype = dayjs__default['default'].prototype; // фильтр
 
   var filterCallback = methodCallback; // 2. добавление глобального объекта

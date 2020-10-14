@@ -62,10 +62,8 @@ VueDayJS.install = function (Vue, options = {}) {
     },
   };
 
-  window.dayjs = dayjs;
-
   // метод
-  let methodCallback = (date, opts = {}) => {
+  const methodCallback = (date, opts = {}) => {
     if (!date && !options.fallbackToDateNow) return options.placeholder;
 
     let res = dayjs(date);
@@ -90,8 +88,8 @@ VueDayJS.install = function (Vue, options = {}) {
     }
     return options.placeholder;
   };
-  
-  methodCallback = {...dayjs, ...methodCallback}
+
+  Object.assign(methodCallback, dayjs);
   methodCallback.prototype = dayjs.prototype;
 
   // фильтр
