@@ -1,5 +1,5 @@
 /*!
- * vue-day-moment-js v0.0.1
+ * vue-day-moment-js v0.0.3
  * (c) Kostia Bazrov
  * Released under the MIT License.
  */
@@ -40,6 +40,42 @@ function _defineProperty(obj, key, value) {
   }
 
   return obj;
+}
+
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
+function _objectWithoutProperties(source, excluded) {
+  if (source == null) return {};
+
+  var target = _objectWithoutPropertiesLoose(source, excluded);
+
+  var key, i;
+
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0) continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
+      target[key] = source[key];
+    }
+  }
+
+  return target;
 }
 
 function _slicedToArray(arr, i) {
@@ -117,7 +153,8 @@ function _nonIterableRest() {
 var relativeTime = require("dayjs/plugin/relativeTime");
 
 dayjs__default['default'].extend(relativeTime);
-var VueDayJS = {}; // https://ru.vuejs.org/v2/guide/plugins.html
+var VueDayJS = {};
+VueDayJS.prototype = dayjs__default['default'].prototype; // https://ru.vuejs.org/v2/guide/plugins.html
 
 VueDayJS.install = function (Vue) {
   var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -179,30 +216,26 @@ VueDayJS.install = function (Vue) {
     }
   }; // метод
 
-  var methodCallback = function methodCallback(date) {
-    var format = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : options.format;
+  var methodCallback = function methodCallback(date, opts) {
     var res = dayjs__default['default'](date);
-
-    for (var _len = arguments.length, methodOptions = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
-      methodOptions[_key - 2] = arguments[_key];
-    }
+    var format = typeof opts == "string" ? opts : opts.format || options.format;
 
     if (["add", "subtract"].includes(format)) {
       // https://day.js.org/docs/en/manipulate/add
-      var count = methodOptions[0],
-          unit = methodOptions[1]; // https://day.js.org/docs/en/manipulate/subtract#docsNav
+      var count = opts.count,
+          unit = opts.unit; // https://day.js.org/docs/en/manipulate/subtract#docsNav
 
       res[format](count, unit);
-      format = options.format;
     } else if (format === "diff") {
       // https://day.js.org/docs/en/display/difference#docsNav
       if (res.isValid()) {
         var _res;
 
-        var otherDate = methodOptions[0],
-            _unit = methodOptions[1],
-            other = methodOptions.slice(2);
-        res = (_res = res).diff.apply(_res, [otherDate, _unit].concat(_toConsumableArray(other)));
+        var date2 = opts.date2,
+            _unit = opts.unit,
+            other = _objectWithoutProperties(opts, ["date2", "unit"]);
+
+        res = (_res = res).diff.apply(_res, [date2, _unit].concat(_toConsumableArray(other)));
       }
     }
 

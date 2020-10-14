@@ -10,6 +10,8 @@ dayjs.extend(relativeTime);
 
 const VueDayJS = {};
 
+VueDayJS.prototype = dayjs.prototype
+
 // https://ru.vuejs.org/v2/guide/plugins.html
 VueDayJS.install = function (Vue, options = {}) {
   // https://www.telerik.com/blogs/vuejs-how-to-build-your-first-package-publish-it-on-npm
@@ -62,18 +64,21 @@ VueDayJS.install = function (Vue, options = {}) {
   };
 
   // метод
-  const methodCallback = (date, format = options.format, ...methodOptions) => {
+  const methodCallback = (date, opts) => {
     let res = dayjs(date);
+
+    const format =
+      typeof opts == "string" ? opts : opts.format || options.format;
+
     if (["add", "subtract"].includes(format)) {
       // https://day.js.org/docs/en/manipulate/add
-      const [count, unit] = methodOptions; // https://day.js.org/docs/en/manipulate/subtract#docsNav
+      const { count, unit } = opts; // https://day.js.org/docs/en/manipulate/subtract#docsNav
       res[format](count, unit);
-      format = options.format;
     } else if (format === "diff") {
       // https://day.js.org/docs/en/display/difference#docsNav
       if (res.isValid()) {
-        const [otherDate, unit, ...other] = methodOptions;
-        res = res.diff(otherDate, unit, ...other);
+        const { date2, unit, ...other } = opts;
+        res = res.diff(date2, unit, ...other);
       }
     }
 
@@ -104,4 +109,4 @@ VueDayJS.install = function (Vue, options = {}) {
   options.methods.forEach((key) => (Vue.prototype[key] = methodCallback));
 };
 
-export default VueDayJS
+export default VueDayJS;
