@@ -10,7 +10,7 @@ dayjs.extend(relativeTime);
 
 const VueDayJS = {};
 
-VueDayJS.prototype = dayjs.prototype
+VueDayJS.prototype = dayjs.prototype;
 
 // https://ru.vuejs.org/v2/guide/plugins.html
 VueDayJS.install = function (Vue, options = {}) {
@@ -64,7 +64,7 @@ VueDayJS.install = function (Vue, options = {}) {
   };
 
   // метод
-  const methodCallback = (date, opts) => {
+  const methodCallback = (date, opts = {}) => {
     let res = dayjs(date);
 
     const format =

@@ -1,5 +1,5 @@
 /*!
- * vue-day-moment-js v0.0.3
+ * vue-day-moment-js v0.0.4
  * (c) Kostia Bazrov
  * Released under the MIT License.
  */
@@ -216,7 +216,8 @@ VueDayJS.install = function (Vue) {
     }
   }; // метод
 
-  var methodCallback = function methodCallback(date, opts) {
+  var methodCallback = function methodCallback(date) {
+    var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     var res = dayjs__default['default'](date);
     var format = typeof opts == "string" ? opts : opts.format || options.format;
 
