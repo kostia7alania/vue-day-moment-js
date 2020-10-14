@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "vue-day-moment-js",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Handy Day.js filters and directives for Vue.js",
   "main": "./dist/index.js",
   "scripts": {

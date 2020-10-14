@@ -14,6 +14,8 @@ const opions = {
   // show this if date is invalid
   placeholder: '-----', 
   
+  fallbackToDateNow: false,
+
   // global default format
   format: 'DD.MM.YYYY, HH:mm', 
   

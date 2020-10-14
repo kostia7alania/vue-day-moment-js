@@ -10,8 +10,6 @@ dayjs.extend(relativeTime);
 
 const VueDayJS = {};
 
-VueDayJS.prototype = dayjs.prototype;
-
 // https://ru.vuejs.org/v2/guide/plugins.html
 VueDayJS.install = function (Vue, options = {}) {
   // https://www.telerik.com/blogs/vuejs-how-to-build-your-first-package-publish-it-on-npm
@@ -21,6 +19,7 @@ VueDayJS.install = function (Vue, options = {}) {
 
   const defaults = {
     placeholder: "-",
+    fallbackToDateNow: false,
     format: "DD.MM.YYYY, HH:mm",
     directives: ["moment", "dayjs"],
     filters: ["moment", "dayjs"],
@@ -63,12 +62,16 @@ VueDayJS.install = function (Vue, options = {}) {
     },
   };
 
+  window.dayjs = dayjs;
+
   // метод
-  const methodCallback = (date, opts = {}) => {
+  let methodCallback = (date, opts = {}) => {
+    if (!date && !options.fallbackToDateNow) return options.placeholder;
+
     let res = dayjs(date);
 
     const format =
-      typeof opts == "string" ? opts : opts.format || options.format;
+      typeof opts === "string" ? opts : opts.format || options.format;
 
     if (["add", "subtract"].includes(format)) {
       // https://day.js.org/docs/en/manipulate/add
@@ -83,10 +86,13 @@ VueDayJS.install = function (Vue, options = {}) {
     }
 
     if (res.isValid()) {
-      return format ? res.format(format) : res;
+      return { ...res, toString: () => res.format(format) };
     }
     return options.placeholder;
   };
+  
+  methodCallback = {...dayjs, ...methodCallback}
+  methodCallback.prototype = dayjs.prototype;
 
   // фильтр
   const filterCallback = methodCallback;

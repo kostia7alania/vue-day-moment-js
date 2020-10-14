@@ -1,5 +1,5 @@
 /*!
- * vue-day-moment-js v0.0.4
+ * vue-day-moment-js v0.0.5
  * (c) Kostia Bazrov
  * Released under the MIT License.
  */
@@ -153,8 +153,7 @@ function _nonIterableRest() {
 var relativeTime = require("dayjs/plugin/relativeTime");
 
 dayjs__default['default'].extend(relativeTime);
-var VueDayJS = {};
-VueDayJS.prototype = dayjs__default['default'].prototype; // https://ru.vuejs.org/v2/guide/plugins.html
+var VueDayJS = {}; // https://ru.vuejs.org/v2/guide/plugins.html
 
 VueDayJS.install = function (Vue) {
   var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -164,6 +163,7 @@ VueDayJS.install = function (Vue) {
   // Vue.component("nice-handsome-button", NiceHandsomeButton);
   var defaults = {
     placeholder: "-",
+    fallbackToDateNow: false,
     format: "DD.MM.YYYY, HH:mm",
     directives: ["moment", "dayjs"],
     filters: ["moment", "dayjs"],
@@ -214,12 +214,14 @@ VueDayJS.install = function (Vue) {
       var toEl = res && res.isValid() ? res.format(format) : options.placeholder;
       el.innerText = toEl;
     }
-  }; // метод
+  };
+  window.dayjs = dayjs__default['default']; // метод
 
   var methodCallback = function methodCallback(date) {
     var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    if (!date && !options.fallbackToDateNow) return options.placeholder;
     var res = dayjs__default['default'](date);
-    var format = typeof opts == "string" ? opts : opts.format || options.format;
+    var format = typeof opts === "string" ? opts : opts.format || options.format;
 
     if (["add", "subtract"].includes(format)) {
       // https://day.js.org/docs/en/manipulate/add
@@ -241,12 +243,18 @@ VueDayJS.install = function (Vue) {
     }
 
     if (res.isValid()) {
-      return format ? res.format(format) : res;
+      return Object.assign({}, res, {
+        toString: function toString() {
+          return res.format(format);
+        }
+      });
     }
 
     return options.placeholder;
-  }; // фильтр
+  };
 
+  methodCallback = Object.assign({}, dayjs__default['default'], methodCallback);
+  methodCallback.prototype = dayjs__default['default'].prototype; // фильтр
 
   var filterCallback = methodCallback; // 2. добавление глобального объекта
 
