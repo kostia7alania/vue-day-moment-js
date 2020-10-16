@@ -5,7 +5,9 @@
 import dayjs from "dayjs";
 
 const relativeTime = require("dayjs/plugin/relativeTime");
+const utc = require("dayjs/plugin/utc");
 
+dayjs.extend(utc);
 dayjs.extend(relativeTime);
 
 const VueDayJS = {};
@@ -91,6 +93,7 @@ VueDayJS.install = function (Vue, options = {}) {
 
   Object.assign(methodCallback, dayjs);
   methodCallback.prototype = dayjs.prototype;
+  methodCallback.prototype.original = dayjs;
 
   // фильтр
   const filterCallback = methodCallback;

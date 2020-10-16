@@ -1,5 +1,5 @@
 /*!
- * vue-day-moment-js v0.0.6
+ * vue-day-moment-js v0.0.8
  * (c) Kostia Bazrov
  * Released under the MIT License.
  */
@@ -152,6 +152,9 @@ function _nonIterableRest() {
 
 var relativeTime = require("dayjs/plugin/relativeTime");
 
+var utc = require("dayjs/plugin/utc");
+
+dayjs__default['default'].extend(utc);
 dayjs__default['default'].extend(relativeTime);
 var VueDayJS = {}; // https://ru.vuejs.org/v2/guide/plugins.html
 
@@ -253,7 +256,8 @@ VueDayJS.install = function (Vue) {
   };
 
   Object.assign(methodCallback, dayjs__default['default']);
-  methodCallback.prototype = dayjs__default['default'].prototype; // фильтр
+  methodCallback.prototype = dayjs__default['default'].prototype;
+  methodCallback.prototype.original = dayjs__default['default']; // фильтр
 
   var filterCallback = methodCallback; // 2. добавление глобального объекта
 
